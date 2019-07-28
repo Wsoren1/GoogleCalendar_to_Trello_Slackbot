@@ -8,7 +8,12 @@ class Card:
         self.desc = desc
         self.title = title
         self.due_date = due_datetime
-        self.default_due_time = dt.timedelta(hours=3)
+
+        with open('settings.json', 'r') as file:
+            settings = json.loads(file.read())
+            time_difference = settings["timedelta_assignment"]
+
+        self.default_due_time = dt.timedelta(hours=time_difference)
         self.due_datetime = None
 
     def push_to_trello(self):

@@ -5,3 +5,4 @@
 *tracked_events
 *.pickle
 *missed_events
+*settings.json

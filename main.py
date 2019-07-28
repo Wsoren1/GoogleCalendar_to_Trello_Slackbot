@@ -2,6 +2,7 @@ import datetime as dt
 from time import sleep
 import Interact
 import CalendarSync
+import json
 
 
 def load_next_event(file):
@@ -25,6 +26,10 @@ def delete_next_event(file):
 schedule_path = 'local_events'
 next_event = load_next_event(schedule_path)
 
+with open('settings.json', 'r') as file:
+    settings = json.loads(file.read())
+    refresh_time = settings["refresh_time"]
+
 
 while True:
     next_event = load_next_event(schedule_path)
@@ -34,7 +39,7 @@ while True:
     print(next_event)
     print(now)
     if now >= next_event[0]:
-        if now - next_event[0] <= dt.timedelta(seconds=15):
+        if now - next_event[0] <= dt.timedelta(seconds=settings["refresh_time"] * 1.5):
             try:
                 Interact.calendar_card_creation()
             except Interact.UserResponseTimeoutError:
@@ -44,7 +49,7 @@ while True:
             delete_next_event(schedule_path)
 
     if now >= midnight:
-        if now - midnight <= dt.timedelta(seconds=15):
+        if now - midnight <= dt.timedelta(seconds=settings["refresh_time"] * 1.5):
             CalendarSync.main()
 
-    sleep(10)
+    sleep(settings["refresh_time"])

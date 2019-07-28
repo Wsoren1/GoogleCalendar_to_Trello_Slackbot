@@ -35,9 +35,10 @@ def slack_message(dict_key, extra_text=None):
     sc = SlackClient(slack_api_key)
     sc.api_call('chat.postMessage', channel='trello_integration',
                 text=random.choice(message_dict[dict_key]).format(extra_text),
-                username='jarvis', icon_emoji=':satellite:')
+                username=settings['bot_user'], icon_emoji=settings['bot_icon'])
 
     # Trellobot Dialogue
+
     if dict_key == 'ignore_notification':
         time.sleep(5)
 
@@ -48,7 +49,7 @@ def slack_message(dict_key, extra_text=None):
         sc.api_call('chat.postMessage', channel='trello_integration',
                     text=":face_with_rolling_eyes:\nLook, I'll keep a tab open on your missed events, "
                          "I'll ask again later",
-                    username='Jarvis', icon_emoji=':satellite:')
+                    username=settings['bot_user'], icon_emoji=settings['bot_icon'])
 
 
 def wait_and_listen():
@@ -130,7 +131,7 @@ def calendar_card_creation():
                     sc = SlackClient(slack_api_key)
                     sc.api_call('chat.postMessage', channel='trello_integration',
                                 text=event_str,
-                                username='jarvis', icon_emoji=':satellite:')
+                                username=settings['bot_user'], icon_emoji=settings['bot_icon'])
 
                     template_card.title = wait_and_listen()
                     if template_card.title.lower() != 'nothing':
@@ -208,3 +209,5 @@ message_dict = {
 }
 slack_client = SlackClient(slack_api_key)
 
+with open('settings.json', 'r') as file:
+    settings = json.loads(file.read())
