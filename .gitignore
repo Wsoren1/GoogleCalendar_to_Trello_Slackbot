@@ -1,0 +1,7 @@
+*slack_credentials.json
+*trello_credentials.json
+*google_credentials.json
+*local_events
+*tracked_events
+*.pickle
+*missed_events
