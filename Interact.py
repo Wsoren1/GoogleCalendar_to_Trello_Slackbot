@@ -33,7 +33,7 @@ def delete_next_event(file):
 
 def slack_message(dict_key, extra_text=None):
     sc = SlackClient(slack_api_key)
-    sc.api_call('chat.postMessage', channel='trello_integration',
+    sc.api_call('chat.postMessage', channel=settings['slack_channel'],
                 text=random.choice(message_dict[dict_key]).format(extra_text),
                 username=settings['bot_user'], icon_emoji=settings['bot_icon'])
 
@@ -42,11 +42,11 @@ def slack_message(dict_key, extra_text=None):
     if dict_key == 'ignore_notification':
         time.sleep(5)
 
-        sc.api_call('chat.postMessage', channel='trello_integration',
+        sc.api_call('chat.postMessage', channel=settings['slack_channel'],
                     text=':(',
                     username='TrelloBot', icon_emoji=':computer:')
         time.sleep(5)
-        sc.api_call('chat.postMessage', channel='trello_integration',
+        sc.api_call('chat.postMessage', channel=settings['slack_channel'],
                     text=":face_with_rolling_eyes:\nLook, I'll keep a tab open on your missed events, "
                          "I'll ask again later",
                     username=settings['bot_user'], icon_emoji=settings['bot_icon'])
@@ -129,7 +129,7 @@ def calendar_card_creation():
                                                                  str(calendar_event[0]))
 
                     sc = SlackClient(slack_api_key)
-                    sc.api_call('chat.postMessage', channel='trello_integration',
+                    sc.api_call('chat.postMessage', channel=settings['slack_channel'],
                                 text=event_str,
                                 username=settings['bot_user'], icon_emoji=settings['bot_icon'])
 
