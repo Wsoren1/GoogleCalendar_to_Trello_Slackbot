@@ -5,6 +5,9 @@ if input('Are you sure? If you have data in these files, it will be completely o
     with open('missed_events', 'w') as file2:
         pass
 
+    with open('tracked_events', 'w') as file3:
+        pass
+
     with open('slack_credentials.json', 'w') as scfile:
         sc_template = '{"slack_api_key":"None",\n"active_channel":"None"}'
         scfile.write(sc_template)
@@ -20,6 +23,7 @@ if input('Are you sure? If you have data in these files, it will be completely o
                             '"bot_user":"jarvis",\n'\
                             '"bot_icon":":satellite:",\n'\
                             '"timedelta_assignment":3,\n'\
-                            '"refresh_time":10}'
+                            '"refresh_time":10,\n'\
+                            '"slack_channel":"trello_integration"}'
         setfile.write(settings_template)
 
