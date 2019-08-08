@@ -1,5 +1,7 @@
 # GoogleCalendar_to_Trello_Slackbot
-Task monitoring software meant for students. Reads google calendar events, prompts a slackbot interaction to ask student if assignments were posted, and can create Trello cards in specified list.
+This software monitors a class schedule, by reading google calendar events, then, pushes a Slack bot to ask if student was assigned any reading, homework, etc.  Student will respond with a name of the assignment, and the day it is due, and then the Software will push a detailed card to trello.
+
+
 
 
 # Features
