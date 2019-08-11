@@ -10,6 +10,8 @@ WIP
 
 # Setup
 
+For python 3.6.5 or greater
+
 ### Required Dependicies
 - google-api-python-client
 - google-auth-httplib2
@@ -23,6 +25,11 @@ This will create a settings file, templates for the credential files for slack a
 
 #### Setup Google Calendar
 [Guide for running first calendarsync.py](https://developers.google.com/calendar/quickstart/python)
+
+With the credentials file:
+copy paste and put in credentials.json file
+
+Unfortunately, Google requires a user to go through a web browser, so if on raspberry pi, go to the GUI and then run CalendarSync.py.  This needs to be tested, but I only believe this needs to be done once.  
 
 #### Setup Slack Channel
 WIP
