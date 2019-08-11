@@ -6,3 +6,4 @@
 *.pickle
 *missed_events
 *settings.json
+*__pycache__

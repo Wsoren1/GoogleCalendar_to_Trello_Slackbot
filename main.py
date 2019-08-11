@@ -21,8 +21,9 @@ def delete_next_event(file):
     with open(file, 'w') as fout:
         fout.writelines(data[1:])
 
+sleep(30)
 
-# CalendarSync.main()
+CalendarSync.main()
 schedule_path = 'local_events'
 next_event = load_next_event(schedule_path)
 
@@ -36,8 +37,8 @@ while True:
     now = dt.datetime.now()
     today = dt.date.today()
     midnight = dt.datetime.combine(today, dt.datetime.min.time())
-    print(next_event)
-    print(now)
+    # print(next_event)
+    # print(now)
     if now >= next_event[0]:
         if now - next_event[0] <= dt.timedelta(seconds=settings["refresh_time"] * 1.5):
             try:

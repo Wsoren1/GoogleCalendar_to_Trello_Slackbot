@@ -18,6 +18,9 @@ if input('Are you sure? If you have data in these files, it will be completely o
                       '"class_label_id":"None"}'
         trfile.write(tr_template)
 
+    with open('google_credentials.json', 'w') as gofile:
+        pass
+
     with open('settings.json', 'w') as setfile:
         settings_template = '{"timeout":30,\n'\
                             '"bot_user":"jarvis",\n'\
