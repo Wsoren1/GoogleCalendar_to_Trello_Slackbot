@@ -72,57 +72,57 @@ def wait_and_listen():
                         return event['text']
 
 
-    with open('missed_events', 'r') as file:
-        missed_events_count = 0
-        for i in file:
-            missed_events_count += 1
-        if missed_events_count != 0:
-            slack_message('missed_prompt', str(missed_events_count))
-            if wait_and_listen().lower() == 'yes':
-                for i in range(missed_events_count):
-                    calendar_event = load_next_event('missed_events')
-                    template_card = Card(calendar_event[1])
-
-                    event_str = "Here's missed class {0}. \n```{1}\n{2}```\n" \
-                                "What were you assigned?".format(i + 1,
-                                                                 str(calendar_event[1]),
-                                                                 str(calendar_event[0]))
-
-                    sc = SlackClient(slack_api_key)
-                    sc.api_call('chat.postMessage', channel=settings['slack_channel'],
-                                text=event_str,
-                                username=settings['bot_user'], icon_emoji=settings['bot_icon'])
-
-                    template_card.title = wait_and_listen()
-                    if template_card.title.lower() != 'nothing':
-                        slack_message('due_date_prompt')
-                        month_date = wait_and_listen()
-                        month_date = month_date.split('/')
-                        month = int(month_date[0])
-                        day = int(month_date[1])
-                        year = dt.datetime.now().year
-
-                        due_date = dt.date(year, month, day)
-
-                        due_time = calendar_event[0].time()
-
-                        due_datetime = dt.datetime.combine(due_date, due_time)
-
-                        template_card.due_date = due_datetime
-
-                        template_card.push_to_trello()
-
-                        slack_message('card_pushed')
-                        time.sleep(3)
-
-                    if i < missed_events_count:
-                        slack_message('more_assignments_prompt')
-                        time.sleep(2)
-                        missed_events_count -= 1
-
-                    delete_next_event('missed_events')
-
-    slack_message('farewell')
+    # with open('missed_events', 'r') as file:
+    #     missed_events_count = 0
+    #     for i in file:
+    #         missed_events_count += 1
+    #     if missed_events_count != 0:
+    #         slack_message('missed_prompt', str(missed_events_count))
+    #         if wait_and_listen().lower() == 'yes':
+    #             for i in range(missed_events_count):
+    #                 calendar_event = load_next_event('missed_events')
+    #                 template_card = Card(calendar_event[1])
+    #
+    #                 event_str = "Here's missed class {0}. \n```{1}\n{2}```\n" \
+    #                             "What were you assigned?".format(i + 1,
+    #                                                              str(calendar_event[1]),
+    #                                                              str(calendar_event[0]))
+    #
+    #                 sc = SlackClient(slack_api_key)
+    #                 sc.api_call('chat.postMessage', channel=settings['slack_channel'],
+    #                             text=event_str,
+    #                             username=settings['bot_user'], icon_emoji=settings['bot_icon'])
+    #
+    #                 template_card.title = wait_and_listen()
+    #                 if template_card.title.lower() != 'nothing':
+    #                     slack_message('due_date_prompt')
+    #                     month_date = wait_and_listen()
+    #                     month_date = month_date.split('/')
+    #                     month = int(month_date[0])
+    #                     day = int(month_date[1])
+    #                     year = dt.datetime.now().year
+    #
+    #                     due_date = dt.date(year, month, day)
+    #
+    #                     due_time = calendar_event[0].time()
+    #
+    #                     due_datetime = dt.datetime.combine(due_date, due_time)
+    #
+    #                     template_card.due_date = due_datetime
+    #
+    #                     template_card.push_to_trello()
+    #
+    #                     slack_message('card_pushed')
+    #                     time.sleep(3)
+    #
+    #                 if i < missed_events_count:
+    #                     slack_message('more_assignments_prompt')
+    #                     time.sleep(2)
+    #                     missed_events_count -= 1
+    #
+    #                 delete_next_event('missed_events')
+    #
+    # slack_message('farewell')
 
 
 # Move str to config file

@@ -21,11 +21,15 @@ def delete_next_event(file):
     with open(file, 'w') as fout:
         fout.writelines(data[1:])
 
+
 with open('settings.json', 'r') as file:
     settings = json.loads(file.read())
     refresh_time = settings["refresh_time"]
 
 
 while True:  # loop that bot will run tasks
-
+    # Extract data
+    # run data processing script
+    # push any re-occuring tasks to appropriate board
+    # separate active tasks from previous tasks
     sleep(settings["refresh_time"])

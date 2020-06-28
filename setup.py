@@ -1,9 +1,4 @@
 if input('Are you sure? If you have data in these files, it will be completely overwritten.').lower() == 'yes':
-    with open('missed_events', 'w') as file2:
-        pass
-
-    with open('tracked_events', 'w') as file3:
-        pass
 
     with open('slack_credentials.json', 'w') as scfile:
         sc_template = '{"slack_api_key":"None",\n"active_channel":"None"}'
