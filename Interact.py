@@ -72,46 +72,6 @@ def wait_and_listen():
                         return event['text']
 
 
-def calendar_card_creation():
-
-    calendar_event = load_next_event('local_events')
-
-    slack_message('greeting_prompt', calendar_event[1])
-    if wait_and_listen().lower() == 'yes':
-        slack_message('user_respond_yes')
-        cards_to_create = int(wait_and_listen())
-        for i in range(cards_to_create):
-            template_card = Card(calendar_event[1])
-            slack_message('title_prompt', calendar_event[1])
-            template_card.title = wait_and_listen()
-            slack_message('due_date_prompt')
-            month_date = wait_and_listen()
-            month_date = month_date.split('/')
-            month = int(month_date[0])
-            day = int(month_date[1])
-            year = dt.datetime.now().year
-
-            due_date = dt.date(year, month, day)
-
-            due_time = calendar_event[0].time()
-
-            due_datetime = dt.datetime.combine(due_date, due_time)
-
-            template_card.due_date = due_datetime
-
-            template_card.push_to_trello()
-
-            slack_message('card_pushed')
-            time.sleep(3)
-
-            if i < cards_to_create - 1:
-                slack_message('more_assignments_prompt')
-                time.sleep(2)
-
-    else:
-        slack_message('user_respond_no')
-        time.sleep(2)
-
     with open('missed_events', 'r') as file:
         missed_events_count = 0
         for i in file:

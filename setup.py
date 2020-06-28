@@ -1,7 +1,4 @@
 if input('Are you sure? If you have data in these files, it will be completely overwritten.').lower() == 'yes':
-    with open('local_events', 'w') as file1:
-        pass
-
     with open('missed_events', 'w') as file2:
         pass
 
@@ -20,7 +17,7 @@ if input('Are you sure? If you have data in these files, it will be completely o
 
     with open('settings.json', 'w') as setfile:
         settings_template = '{"timeout":30,\n'\
-                            '"bot_user":"jarvis",\n'\
+                            '"bot_user":"legion",\n'\
                             '"bot_icon":":satellite:",\n'\
                             '"timedelta_assignment":3,\n'\
                             '"refresh_time":10,\n'\
